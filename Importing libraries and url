@@ -1,0 +1,14 @@
+#loading libraries
+
+from textblob import TextBlob
+from newspaper import Article
+import requests
+import bs4 as bfs
+from bs4 import BeautifulSoup
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+#Import url
+url = 'https://insights.blackcoffer.com/ai-in-healthcare-to-improve-patient-outcomes/'
+article = Article(url)
