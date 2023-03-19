@@ -1,0 +1,188 @@
+import nltk
+from nltk.tokenize import sent_tokenize
+
+nltk_token= nltk.word_tokenize(text)
+nltk_token=[w.lower() for w in nltk_token]
+print(nltk_token)
+num_words = len(nltk_token)
+
+positiveWordsFile = "C:/Users/bsdri/Desktop/textanalysis/positive-words.txt"
+negativeWordsFile = "C:/Users/bsdri/Desktop/textanalysis/negative-words.txt"
+
+# Loading negative words
+with open(positiveWordsFile,'r') as posfile:
+    positivewords=posfile.read().lower()
+positiveWordList=positivewords.split('\n')
+
+# Loading negative words
+with open(negativeWordsFile ,'r') as negfile:
+    negativeword=negfile.read().lower()
+negativeWordList=negativeword.split('\n')
+
+# Percentage of complex words
+def percentage_complex_word(text):
+    #tokens = tokenizer(text)
+    nltk_token= nltk.word_tokenize(text)
+    complexWord = 0
+    complex_word_percentage = 0
+    
+    for word in nltk_token:
+        vowels=0
+        if word.endswith(('es','ed')):
+            pass
+        else:
+            for w in word:
+                if(w=='a' or w=='e' or w=='i' or w=='o' or w=='u'):
+                    vowels += 1
+            if(vowels > 2):
+                complexWord += 1
+    if len(nltk_token) != 0:
+        complex_word_percentage = complexWord/len(nltk_token)
+    
+    return complex_word_percentage
+
+print(percentage_complex_word(text))
+
+def countfunc(store, words):
+    score = 0
+    for x in words:
+        if(x in store):
+            score = score+1
+    return score
+
+def polarity(positive_score, negative_score):
+    return (positive_score - negative_score)/((positive_score + negative_score)+ 0.000001)
+
+def subjectivity(positive_score, negative_score, num_words):
+    return (positive_score+negative_score)/(num_words+ 0.000001)
+
+def fog_index_cal(average_sentence_length, percentage_complexwords):
+    return 0.4*(average_sentence_length + percentage_complexwords)
+
+num_words=len(nltk_token)
+
+positive_score = countfunc(positiveWordList, nltk_token)
+negative_score = countfunc(negativeWordList, nltk_token)
+
+polarity_score = polarity(positive_score, negative_score)
+
+subjectivity_score = subjectivity(positive_score, negative_score, num_words)
+
+sentence_list = sent_tokenize(s_text)
+num_sentences=len(sentence_list)
+average_sentence_length = num_words/num_sentences
+
+fog_index = fog_index_cal(average_sentence_length,percentage_complex_word(text))
+
+print(positive_score)
+print(negative_score)
+print(polarity_score)
+print(subjectivity_score)
+print(average_sentence_length)
+print(fog_index)
+
+#Analysis of Readability
+def fog_index_cal(average_sentence_length, percentage_complexwords):
+    return 0.4*(average_sentence_length + percentage_complexwords)
+
+print(fog_index)
+# average sentence length
+
+def average_sentence_length(text):
+    sentence_list = sent_tokenize(s_text)
+    nltk_token= nltk.word_tokenize(text)
+    totalWordCount = len(nltk_token)
+    totalSentences = len(sentence_list)
+    average_sent = 0
+    if totalSentences != 0:
+        average_sent = (totalWordCount / totalSentences)
+    
+    average_sent_length= average_sent
+    
+    return round(average_sent_length)
+
+print(average_sentence_length(text))
+
+
+sentence_list= sent_tokenize(s_text)
+
+# Percentage of complex words
+def percentage_complex_word(text):
+    #tokens = tokenizer(text)
+    nltk_token= nltk.word_tokenize(text)
+    complexWord = 0
+    complex_word_percentage = 0
+    
+    for word in nltk_token:
+        vowels=0
+        if word.endswith(('es','ed')):
+            pass
+        else:
+            for w in word:
+                if(w=='a' or w=='e' or w=='i' or w=='o' or w=='u'):
+                    vowels += 1
+            if(vowels > 2):
+                complexWord += 1
+    if len(nltk_token) != 0:
+        complex_word_percentage = complexWord/len(nltk_token)
+    
+    return complex_word_percentage
+
+print(percentage_complex_word(text))
+
+# avg number of words per sentence
+def avg_num_of_word_sen(text):
+    nltk_token= nltk.word_tokenize(text)
+    totalWordCount = len(nltk_token)
+    sentence_list = sent_tokenize(s_text)
+    totalSentences = len(sentence_list)
+    avg_w_s=0
+    avg_w_s=(totalWordCount/totalSentences)
+    
+    return avg_w_s
+   
+print(avg_num_of_word_sen(text))    
+
+#syllables
+def syllable_per_word(text):
+    nltk_token = nltk.word_tokenize(text)
+    nltk_token= [w.lower() for w in nltk_token]
+    #syllable=0
+    for word in nltk_token:
+        vowels=0
+        if word.endswith(('es','ed')):
+            pass
+        else:
+            for w in word:
+                if(w=='a' or w=='e' or w=='i' or w=='o' or w=='u'):
+                    vowels += 1
+    syllable=vowels                
+    return syllable  
+print(syllable_per_word(text))
+
+# word count
+nltk_token= nltk.word_tokenize(text)
+print(len(nltk_token))
+
+#personal pronouns(textwords)
+py_str = "nltk @%,^ remove #! punctualtion"
+exclude = set(string.punctuation)
+textt= ''.join(ch for ch in rawtext if ch not in exclude)
+#print (textt)
+token= nltk.word_tokenize(textt)
+#print(token)
+
+def personal_pronouns(textt):
+    count=0
+    token= nltk.word_tokenize(textt)
+    for word in token:
+        if (word=='i' or word=='my' or word=='we' or word=='our' or word=='us'):
+            count = count +1
+    pcount=count
+    return pcount
+print(personal_pronouns(textt))
+#avg word length
+
+average = sum(len(word) for word in nltk_token) / len(nltk_token)
+print(average)
+            
