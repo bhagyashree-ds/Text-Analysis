@@ -1,0 +1,79 @@
+file = open("StopWords_auditor.txt", "r")
+  
+# reading the file
+data = file.read()
+  
+# replacing end splitting the text 
+# when newline ('\n') is seen.
+sw1 = data.split("\n")
+#print(sw1)
+file.close()
+
+file = open("StopWords_Currencies.txt", "r")
+  
+# reading the file
+data = file.read()
+ 
+# replacing end splitting the text 
+# when newline ('\n') is seen.
+sw2 = data.replace('\n', '|').split("|")
+sw2 = [x.strip(' ') for x in sw2]
+sw2 = [name.upper() for name in sw2]
+#print(sw2)
+file.close()
+
+file = open("StopWords_Generic.txt", "r")
+  
+# reading the file
+data = file.read()
+  
+# replacing end splitting the text 
+# when newline ('\n') is seen.
+sw4 = data.split("\n")
+#print(sw4)
+file.close()
+
+# opening the file in read mode
+my_file = open("StopWords_DatesandNumbers.txt", "r")
+  
+# reading the file
+data = my_file.read()
+  
+# replacing end of line('/n') with ' ' and
+# splitting the text it further when '.' is seen.
+data_into_list = data.replace('\n',' ').split(" ")
+
+# printing the data
+#print(data_into_list)
+
+my_file.close()
+
+
+# To download article
+article.download()
+article.parse()
+article.nlp()
+
+rawtext = article.text
+
+textwords= rawtext.split()
+textwords = [x.strip(' ') for x in textwords]
+
+stopword= sw1+ sw2+ data_into_list+sw4 +sw5+sw6 +sw7
+
+#Removing stopwords
+#removing stopwords
+resultwords  = [word for word in textwords if word.upper() not in stopword]
+s_text = ' '.join(resultwords)
+print(s_text)
+
+#removed stopwords and punctualation 
+import string
+py_str = "nltk @%,^ remove #! punctualtion"
+exclude = set(string.punctuation)
+text= ''.join(ch for ch in s_text if ch not in exclude)
+
+
+
+#rawtext= rawtext.upper()
+print(rawtext)
